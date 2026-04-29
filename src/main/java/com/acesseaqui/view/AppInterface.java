@@ -1,25 +1,64 @@
-package view;
+package com.acesseaqui.view;
 
-import model.Notificacao;
-import model.Usuario;
-import service.Cliente;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.io.File;
-import java.io.*;
-import java.util.ArrayList;
-import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import com.acesseaqui.model.Notificacao;
+import com.acesseaqui.model.Usuario;
+import com.acesseaqui.service.Cliente;
 
 public class AppInterface {
 
     private final ArrayList<Notificacao> notificacoes = new ArrayList<>();
-    private JFrame frame;
-    private JTabbedPane tabbedPane;
+    private final JFrame frame;
+    private final JTabbedPane tabbedPane;
+    
     private JList<Notificacao> notificacoesList;
     private DefaultListModel<Notificacao> notificacoesListModel;
     private Notificacao notificacaoSendoEditada = null;
@@ -52,17 +91,15 @@ public class AppInterface {
             UIManager.put("nimbusBase", new Color(25, 42, 86));
             UIManager.put("nimbusBlueGrey", new Color(25, 42, 86));
             UIManager.put("control", new Color(245, 247, 250));
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException e) {
+            System.err.println("Erro ao carregar o tema visual: " + e.getMessage());
         }
         SwingUtilities.invokeLater(AppInterface::new);
     }
 
-
     private final String ARQUIVO_DADOS = definirCaminhoArquivo();
 
     private String definirCaminhoArquivo() {
-        File noSrc = new File("src/notificacoes.dat");
         if (new File("src").exists()) {
             return "src/notificacoes.dat";
         }
@@ -416,7 +453,7 @@ public class AppInterface {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(ARQUIVO_DADOS))) {
             oos.writeObject(notificacoes);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Erro ao salvar o arquivo de dados: " + e.getMessage());
         }
     }
 
@@ -428,8 +465,8 @@ public class AppInterface {
                 ArrayList<Notificacao> dados = (ArrayList<Notificacao>) ois.readObject();
                 notificacoes.clear();
                 notificacoes.addAll(dados);
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (IOException | ClassNotFoundException e) {
+                System.err.println("Erro ao ler o arquivo de dados: " + e.getMessage());
             }
         }
     }

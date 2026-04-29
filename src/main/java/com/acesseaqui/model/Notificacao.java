@@ -1,5 +1,4 @@
-package model;
-
+package com.acesseaqui.model;
 import java.time.LocalDateTime;
 
 public class Notificacao implements java.io.Serializable {

@@ -1,4 +1,4 @@
-package model;
+package com.acesseaqui.model;
 
 public class Pessoa implements java.io.Serializable {
     private String nome;

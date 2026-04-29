@@ -1,17 +1,32 @@
-package view;
+package com.acesseaqui.view;
 
-import model.Notificacao;
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Image;
 import java.io.File;
+
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.ListCellRenderer;
+import javax.swing.SwingConstants;
+
+import com.acesseaqui.model.Notificacao;
 
 public class NotificacaoListCellRenderer extends JPanel implements ListCellRenderer<Notificacao> {
 
-    private JLabel descricaoLabel;
-    private JLabel localizacaoLabel;
-    private JLabel usuarioLabel;
-    private JLabel dataLabel;
-    private JLabel imagemLabel;
+    private final JLabel descricaoLabel;
+    private final JLabel localizacaoLabel;
+    private final JLabel usuarioLabel;
+    private final JLabel dataLabel;
+    private final JLabel imagemLabel;
 
     private final Color COLOR_PRIMARY = new Color(41, 128, 185);
     private final Color COLOR_TEXT = new Color(44, 62, 80);

@@ -1,4 +1,4 @@
-package service;
+package com.acesseaqui.service;
 
 import java.io.*;
 import java.net.Socket;

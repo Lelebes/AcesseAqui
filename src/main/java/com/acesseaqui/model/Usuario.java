@@ -1,6 +1,6 @@
-package model;
+package com.acesseaqui.model;
 
-public class Usuario extends Pessoa implements java.io.Serializable {
+public class Usuario extends Pessoa{
     private String genero;
 
     public Usuario(String nome, String email, String genero, int idade) {
